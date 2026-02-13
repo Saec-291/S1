@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Examination Results</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+        
+        /* Section 1: The Fake University Page */
+        #exam-page {
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .header { background: #003366; color: white; width: 100%; padding: 20px 0; position: absolute; top: 0; }
+        .login-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 300px; }
+        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #003366; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; width: 100%; }
+
+        /* Section 2: The White Screen */
+        #white-screen {
+            display: none;
+            background: white;
+            height: 100vh;
+            width: 100vw;
+            cursor: pointer;
+            position: absolute;
+            top: 0; z-index: 10;
+        }
+
+        /* Section 3: Rose Rain */
+        #rose-container {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            z-index: 20;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .rose {
+            position: absolute;
+            font-size: 30px;
+            user-select: none;
+            top: -50px;
+            animation: fall linear forwards;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* Section 4: The Final Reveal */
+        #final-reveal {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            z-index: 30;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: explode 0.8s ease-out;
+        }
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .couple-img {
+            width: 300px;
+            border: 10px solid white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        .message {
+            text-align: center;
+            color: #d63384;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .message h1 { font-size: 3rem; margin: 0; font-family: 'Georgia', serif; }
+        .message p { font-size: 1.5rem; font-weight: bold; }
+        .hearts { font-size: 2rem; }
+    </style>
+</head>
+<body>
+
+    <div id="exam-page">
+        <div class="header">
+            <h2>STATE TECHNICAL UNIVERSITY</h2>
+            <p>Examination Results Portal - Feb 2026</p>
+        </div>
+        <div class="login-box">
+            <h3>Check Results</h3>
+            <input type="text" placeholder="Register Number" id="reg">
+            <input type="text" placeholder="Date of Birth (DD/MM/YYYY)" id="dob">
+            <button onclick="goToWhite()">Submit</button>
+        </div>
+    </div>
+
+    <div id="white-screen" onclick="startRoses()"></div>
+
+    <div id="rose-container" onclick="showFinal()"></div>
+
+    <div id="final-reveal">
+        <img src="us.jpg" alt="Us" class="couple-img">
+        <div class="message">
+            <h1>Happy Valentine's Day!</h1>
+            <p>I Love You So Much ❤️</p>
+            <div class="hearts">💖 ✨ 🌹 ✨ 💖</div>
+        </div>
+    </div>
+
+    <script>
+        function goToWhite() {
+            document.getElementById('exam-page').style.display = 'none';
+            document.getElementById('white-screen').style.display = 'block';
+        }
+
+        function startRoses() {
+            document.getElementById('white-screen').style.display = 'none';
+            const container = document.getElementById('rose-container');
+            container.style.display = 'block';
+
+            // Generate roses for 5 seconds
+            const interval = setInterval(() => {
+                const rose = document.createElement('div');
+                rose.classList.add('rose');
+                rose.innerHTML = '🌹';
+                rose.style.left = Math.random() * 100 + 'vw';
+                rose.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(rose);
+
+                // Stop creating roses after a bit
+                setTimeout(() => { clearInterval(interval); }, 6000);
+            }, 100);
+        }
+
+        function showFinal() {
+            document.getElementById('rose-container').style.display = 'none';
+            document.getElementById('final-reveal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
